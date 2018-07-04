@@ -29,7 +29,7 @@ import org.apache.flink.table.validate._
 import scala.collection.JavaConversions._
 
 case class Abs(child: Expression) extends UnaryExpression {
-  override private[flink] def resultType: TypeInformation[_] = child.resultType
+  override def resultType: TypeInformation[_] = child.resultType
 
   override private[flink] def validateInput(): ValidationResult =
     TypeCheckUtils.assertNumericExpr(child.resultType, "Abs")
@@ -42,7 +42,7 @@ case class Abs(child: Expression) extends UnaryExpression {
 }
 
 case class Ceil(child: Expression) extends UnaryExpression {
-  override private[flink] def resultType: TypeInformation[_] = LONG_TYPE_INFO
+  override def resultType: TypeInformation[_] = LONG_TYPE_INFO
 
   override private[flink] def validateInput(): ValidationResult =
     TypeCheckUtils.assertNumericExpr(child.resultType, "Ceil")
@@ -55,7 +55,7 @@ case class Ceil(child: Expression) extends UnaryExpression {
 }
 
 case class Exp(child: Expression) extends UnaryExpression with InputTypeSpec {
-  override private[flink] def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
+  override def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
 
   override private[flink] def expectedTypes: Seq[TypeInformation[_]] = DOUBLE_TYPE_INFO :: Nil
 
@@ -68,7 +68,7 @@ case class Exp(child: Expression) extends UnaryExpression with InputTypeSpec {
 
 
 case class Floor(child: Expression) extends UnaryExpression {
-  override private[flink] def resultType: TypeInformation[_] = LONG_TYPE_INFO
+  override def resultType: TypeInformation[_] = LONG_TYPE_INFO
 
   override private[flink] def validateInput(): ValidationResult =
     TypeCheckUtils.assertNumericExpr(child.resultType, "Floor")
@@ -81,7 +81,7 @@ case class Floor(child: Expression) extends UnaryExpression {
 }
 
 case class Log10(child: Expression) extends UnaryExpression with InputTypeSpec {
-  override private[flink] def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
+  override def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
 
   override private[flink] def expectedTypes: Seq[TypeInformation[_]] = DOUBLE_TYPE_INFO :: Nil
 
@@ -95,7 +95,7 @@ case class Log10(child: Expression) extends UnaryExpression with InputTypeSpec {
 case class Log(base: Expression, antilogarithm: Expression) extends Expression with InputTypeSpec {
   def this(antilogarithm: Expression) = this(null, antilogarithm)
 
-  override private[flink] def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
+  override def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
 
   override private[flink] def children: Seq[Expression] =
     if (base == null) Seq(antilogarithm) else Seq(base, antilogarithm)
@@ -115,7 +115,7 @@ object Log {
 }
 
 case class Ln(child: Expression) extends UnaryExpression with InputTypeSpec {
-  override private[flink] def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
+  override def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
 
   override private[flink] def expectedTypes: Seq[TypeInformation[_]] = DOUBLE_TYPE_INFO :: Nil
 
@@ -127,7 +127,7 @@ case class Ln(child: Expression) extends UnaryExpression with InputTypeSpec {
 }
 
 case class Power(left: Expression, right: Expression) extends BinaryExpression with InputTypeSpec {
-  override private[flink] def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
+  override def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
 
   override private[flink] def expectedTypes: Seq[TypeInformation[_]] =
     DOUBLE_TYPE_INFO :: DOUBLE_TYPE_INFO :: Nil
@@ -140,7 +140,7 @@ case class Power(left: Expression, right: Expression) extends BinaryExpression w
 }
 
 case class Sqrt(child: Expression) extends UnaryExpression with InputTypeSpec {
-  override private[flink] def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
+  override def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
 
   override private[flink] def expectedTypes: Seq[TypeInformation[_]] =
     Seq(DOUBLE_TYPE_INFO)
@@ -153,7 +153,7 @@ case class Sqrt(child: Expression) extends UnaryExpression with InputTypeSpec {
 }
 
 case class Sin(child: Expression) extends UnaryExpression {
-  override private[flink] def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
+  override def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
 
   override private[flink] def validateInput(): ValidationResult =
     TypeCheckUtils.assertNumericExpr(child.resultType, "Sin")
@@ -166,7 +166,7 @@ case class Sin(child: Expression) extends UnaryExpression {
 }
 
 case class Cos(child: Expression) extends UnaryExpression {
-  override private[flink] def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
+  override def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
 
   override private[flink] def validateInput(): ValidationResult =
     TypeCheckUtils.assertNumericExpr(child.resultType, "Cos")
@@ -179,7 +179,7 @@ case class Cos(child: Expression) extends UnaryExpression {
 }
 
 case class Tan(child: Expression) extends UnaryExpression {
-  override private[flink] def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
+  override def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
 
   override private[flink] def validateInput(): ValidationResult =
     TypeCheckUtils.assertNumericExpr(child.resultType, "Tan")
@@ -192,7 +192,7 @@ case class Tan(child: Expression) extends UnaryExpression {
 }
 
 case class Cot(child: Expression) extends UnaryExpression {
-  override private[flink] def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
+  override def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
 
   override private[flink] def validateInput(): ValidationResult =
     TypeCheckUtils.assertNumericExpr(child.resultType, "Cot")
@@ -205,7 +205,7 @@ case class Cot(child: Expression) extends UnaryExpression {
 }
 
 case class Asin(child: Expression) extends UnaryExpression {
-  override private[flink] def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
+  override def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
 
   override private[flink] def validateInput(): ValidationResult =
     TypeCheckUtils.assertNumericExpr(child.resultType, "Asin")
@@ -218,7 +218,7 @@ case class Asin(child: Expression) extends UnaryExpression {
 }
 
 case class Acos(child: Expression) extends UnaryExpression {
-  override private[flink] def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
+  override def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
 
   override private[flink] def validateInput(): ValidationResult =
     TypeCheckUtils.assertNumericExpr(child.resultType, "Acos")
@@ -231,7 +231,7 @@ case class Acos(child: Expression) extends UnaryExpression {
 }
 
 case class Atan(child: Expression) extends UnaryExpression {
-  override private[flink] def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
+  override def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
 
   override private[flink] def validateInput(): ValidationResult =
     TypeCheckUtils.assertNumericExpr(child.resultType, "Atan")
@@ -244,7 +244,7 @@ case class Atan(child: Expression) extends UnaryExpression {
 }
 
 case class Degrees(child: Expression) extends UnaryExpression {
-  override private[flink] def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
+  override def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
 
   override private[flink] def validateInput(): ValidationResult =
     TypeCheckUtils.assertNumericExpr(child.resultType, "Degrees")
@@ -257,7 +257,7 @@ case class Degrees(child: Expression) extends UnaryExpression {
 }
 
 case class Radians(child: Expression) extends UnaryExpression {
-  override private[flink] def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
+  override def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
 
   override private[flink] def validateInput(): ValidationResult =
     TypeCheckUtils.assertNumericExpr(child.resultType, "Radians")
@@ -270,7 +270,7 @@ case class Radians(child: Expression) extends UnaryExpression {
 }
 
 case class Sign(child: Expression) extends UnaryExpression {
-  override private[flink] def resultType: TypeInformation[_] = child.resultType
+  override def resultType: TypeInformation[_] = child.resultType
 
   override private[flink] def validateInput(): ValidationResult =
     TypeCheckUtils.assertNumericExpr(child.resultType, "sign")
@@ -283,7 +283,7 @@ case class Sign(child: Expression) extends UnaryExpression {
 }
 
 case class Round(left: Expression, right: Expression) extends BinaryExpression {
-  override private[flink] def resultType: TypeInformation[_] = left.resultType
+  override def resultType: TypeInformation[_] = left.resultType
 
   override private[flink] def validateInput(): ValidationResult = {
     if (!TypeCheckUtils.isInteger(right.resultType)) {
@@ -301,7 +301,7 @@ case class Round(left: Expression, right: Expression) extends BinaryExpression {
 }
 
 case class Pi() extends LeafExpression {
-  override private[flink] def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
+  override def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
 
   override def toString: String = s"pi()"
 
@@ -311,7 +311,7 @@ case class Pi() extends LeafExpression {
 }
 
 case class E() extends LeafExpression {
-  override private[flink] def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
+  override def resultType: TypeInformation[_] = DOUBLE_TYPE_INFO
 
   override def toString: String = s"e()"
 
@@ -330,7 +330,7 @@ case class Rand(seed: Expression) extends Expression with InputTypeSpec {
     Nil
   }
 
-  override private[flink] def resultType: TypeInformation[_] = BasicTypeInfo.DOUBLE_TYPE_INFO
+  override def resultType: TypeInformation[_] = BasicTypeInfo.DOUBLE_TYPE_INFO
 
   override private[flink] def expectedTypes: Seq[TypeInformation[_]] = if (seed != null) {
     INT_TYPE_INFO :: Nil
@@ -359,7 +359,7 @@ case class RandInteger(seed: Expression, bound: Expression) extends Expression w
     bound :: Nil
   }
 
-  override private[flink] def resultType: TypeInformation[_] = BasicTypeInfo.INT_TYPE_INFO
+  override def resultType: TypeInformation[_] = BasicTypeInfo.INT_TYPE_INFO
 
   override private[flink] def expectedTypes: Seq[TypeInformation[_]] = if (seed != null) {
     INT_TYPE_INFO :: INT_TYPE_INFO :: Nil
@@ -379,7 +379,7 @@ case class RandInteger(seed: Expression, bound: Expression) extends Expression w
 }
 
 case class Bin(child: Expression) extends UnaryExpression {
-  override private[flink] def resultType: TypeInformation[_] = BasicTypeInfo.STRING_TYPE_INFO
+  override def resultType: TypeInformation[_] = BasicTypeInfo.STRING_TYPE_INFO
 
   override private[flink] def validateInput(): ValidationResult =
     TypeCheckUtils.assertIntegerFamilyExpr(child.resultType, "Bin")

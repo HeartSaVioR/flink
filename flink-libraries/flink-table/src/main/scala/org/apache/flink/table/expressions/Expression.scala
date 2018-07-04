@@ -29,7 +29,7 @@ abstract class Expression extends TreeNode[Expression] {
     * Returns the [[TypeInformation]] for evaluating this expression.
     * It is sometimes not available until the expression is valid.
     */
-  private[flink] def resultType: TypeInformation[_]
+  def resultType: TypeInformation[_]
 
   /**
     * One pass validation of the expression tree in post order.

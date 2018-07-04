@@ -51,7 +51,7 @@ case class Call(functionName: String, args: Seq[Expression]) extends Expression 
 
   override def toString = s"\\$functionName(${args.mkString(", ")})"
 
-  override private[flink] def resultType =
+  override def resultType =
     throw UnresolvedException(s"calling resultType on UnresolvedFunction $functionName")
 
   override private[flink] def validateInput(): ValidationResult =
@@ -69,7 +69,7 @@ case class UnresolvedOverCall(agg: Expression, alias: Expression) extends Expres
   override private[flink] def validateInput() =
     ValidationFailure(s"Over window with alias $alias could not be resolved.")
 
-  override private[flink] def resultType = agg.resultType
+  override def resultType = agg.resultType
 
   override private[flink] def children = Seq()
 }
@@ -179,7 +179,7 @@ case class OverCall(
   override private[flink] def children: Seq[Expression] =
     Seq(agg) ++ Seq(orderBy) ++ partitionBy ++ Seq(preceding) ++ Seq(following)
 
-  override private[flink] def resultType = agg.resultType
+  override def resultType = agg.resultType
 
   override private[flink] def validateInput(): ValidationResult = {
 
@@ -281,7 +281,7 @@ case class ScalarFunctionCall(
   override def toString =
     s"${scalarFunction.getClass.getCanonicalName}(${parameters.mkString(", ")})"
 
-  override private[flink] def resultType =
+  override def resultType =
     getResultTypeOfScalarFunction(
       scalarFunction,
       foundSignature.get)

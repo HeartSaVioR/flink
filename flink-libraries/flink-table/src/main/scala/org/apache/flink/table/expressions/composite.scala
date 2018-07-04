@@ -33,7 +33,7 @@ case class Flattening(child: Expression) extends UnaryExpression {
 
   override def toString = s"$child.flatten()"
 
-  override private[flink] def resultType: TypeInformation[_] =
+  override def resultType: TypeInformation[_] =
     throw UnresolvedException(s"Invalid call to on ${this.getClass}.")
 
   override private[flink] def validateInput(): ValidationResult =
@@ -75,7 +75,7 @@ case class GetCompositeField(child: Expression, key: Any) extends UnaryExpressio
     }
   }
 
-  override private[flink] def resultType: TypeInformation[_] =
+  override def resultType: TypeInformation[_] =
     child.resultType.asInstanceOf[CompositeType[_]].getTypeAt(fieldIndex.get)
 
   override private[flink] def toRexNode(implicit relBuilder: RelBuilder): RexNode = {

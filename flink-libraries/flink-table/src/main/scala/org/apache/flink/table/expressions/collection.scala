@@ -47,7 +47,7 @@ case class RowConstructor(elements: Seq[Expression]) extends Expression {
 
   override def toString = s"row(${elements.mkString(", ")})"
 
-  override private[flink] def resultType: TypeInformation[_] = new RowTypeInfo(
+  override def resultType: TypeInformation[_] = new RowTypeInfo(
     elements.map(e => e.resultType):_*
   )
 
@@ -76,7 +76,7 @@ case class ArrayConstructor(elements: Seq[Expression]) extends Expression {
 
   override def toString = s"array(${elements.mkString(", ")})"
 
-  override private[flink] def resultType = ObjectArrayTypeInfo.getInfoFor(elements.head.resultType)
+  override def resultType = ObjectArrayTypeInfo.getInfoFor(elements.head.resultType)
 
   override private[flink] def validateInput(): ValidationResult = {
     if (elements.isEmpty) {
@@ -110,7 +110,7 @@ case class MapConstructor(elements: Seq[Expression]) extends Expression {
     .grouped(2)
     .map(x => s"[${x.mkString(": ")}]").mkString(", ")})"
 
-  override private[flink] def resultType: TypeInformation[_] = new MapTypeInfo(
+  override def resultType: TypeInformation[_] = new MapTypeInfo(
     elements.head.resultType,
     elements.last.resultType
   )
@@ -144,7 +144,7 @@ case class ArrayElement(array: Expression) extends Expression {
 
   override def toString = s"($array).element()"
 
-  override private[flink] def resultType = array.resultType match {
+  override def resultType = array.resultType match {
     case oati: ObjectArrayTypeInfo[_, _] => oati.getComponentInfo
     case bati: BasicArrayTypeInfo[_, _] => bati.getComponentInfo
     case pati: PrimitiveArrayTypeInfo[_] => pati.getComponentType
@@ -170,7 +170,7 @@ case class Cardinality(container: Expression) extends Expression {
 
   override def toString = s"($container).cardinality()"
 
-  override private[flink] def resultType = BasicTypeInfo.INT_TYPE_INFO
+  override def resultType = BasicTypeInfo.INT_TYPE_INFO
 
   override private[flink] def validateInput(): ValidationResult = {
     container.resultType match {
@@ -193,7 +193,7 @@ case class ItemAt(container: Expression, key: Expression) extends Expression {
 
   override def toString = s"($container).at($key)"
 
-  override private[flink] def resultType = container.resultType match {
+  override def resultType = container.resultType match {
     case mti: MapTypeInfo[_, _] => mti.getValueTypeInfo
     case oati: ObjectArrayTypeInfo[_, _] => oati.getComponentInfo
     case bati: BasicArrayTypeInfo[_, _] => bati.getComponentInfo

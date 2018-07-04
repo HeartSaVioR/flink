@@ -86,6 +86,6 @@ case class In(expression: Expression, elements: Seq[Expression]) extends Express
     }
   }
 
-  override private[flink] def resultType: TypeInformation[_] = BOOLEAN_TYPE_INFO
+  override def resultType: TypeInformation[_] = BOOLEAN_TYPE_INFO
 }
 

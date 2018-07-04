@@ -37,7 +37,7 @@ case class Extract(timeIntervalUnit: Expression, temporal: Expression) extends E
 
   override private[flink] def children: Seq[Expression] = timeIntervalUnit :: temporal :: Nil
 
-  override private[flink] def resultType: TypeInformation[_] = LONG_TYPE_INFO
+  override def resultType: TypeInformation[_] = LONG_TYPE_INFO
 
   override private[flink] def validateInput(): ValidationResult = {
     if (!TypeCheckUtils.isTemporal(temporal.resultType)) {
@@ -87,7 +87,7 @@ abstract class TemporalCeilFloor(
 
   override private[flink] def children: Seq[Expression] = timeIntervalUnit :: temporal :: Nil
 
-  override private[flink] def resultType: TypeInformation[_] = temporal.resultType
+  override def resultType: TypeInformation[_] = temporal.resultType
 
   override private[flink] def validateInput(): ValidationResult = {
     if (!TypeCheckUtils.isTimePoint(temporal.resultType)) {
@@ -152,7 +152,7 @@ abstract class CurrentTimePoint(
     local: Boolean)
   extends LeafExpression {
 
-  override private[flink] def resultType: TypeInformation[_] = targetType
+  override def resultType: TypeInformation[_] = targetType
 
   override private[flink] def validateInput(): ValidationResult = {
     if (!TypeCheckUtils.isTimePoint(targetType)) {
@@ -201,7 +201,7 @@ case class Quarter(child: Expression) extends UnaryExpression with InputTypeSpec
 
   override private[flink] def expectedTypes: Seq[TypeInformation[_]] = Seq(SqlTimeTypeInfo.DATE)
 
-  override private[flink] def resultType: TypeInformation[_] = LONG_TYPE_INFO
+  override def resultType: TypeInformation[_] = LONG_TYPE_INFO
 
   override def toString: String = s"($child).quarter()"
 
@@ -234,7 +234,7 @@ case class TemporalOverlaps(
   override private[flink] def children: Seq[Expression] =
     Seq(leftTimePoint, leftTemporal, rightTimePoint, rightTemporal)
 
-  override private[flink] def resultType: TypeInformation[_] = BOOLEAN_TYPE_INFO
+  override def resultType: TypeInformation[_] = BOOLEAN_TYPE_INFO
 
   override private[flink] def validateInput(): ValidationResult = {
     if (!TypeCheckUtils.isTimePoint(leftTimePoint.resultType)) {
@@ -336,5 +336,5 @@ case class DateFormat(timestamp: Expression, format: Expression) extends Express
 
   override def toString: String = s"$timestamp.dateFormat($format)"
 
-  override private[flink] def resultType = STRING_TYPE_INFO
+  override def resultType = STRING_TYPE_INFO
 }

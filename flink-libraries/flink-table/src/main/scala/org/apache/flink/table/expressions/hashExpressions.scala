@@ -26,7 +26,7 @@ import org.apache.flink.table.functions.sql.ScalarSqlFunctions
 
 case class Md5(child: Expression) extends UnaryExpression with InputTypeSpec {
 
-  override private[flink] def resultType: TypeInformation[_] = BasicTypeInfo.STRING_TYPE_INFO
+  override def resultType: TypeInformation[_] = BasicTypeInfo.STRING_TYPE_INFO
 
   override private[flink] def expectedTypes: Seq[TypeInformation[_]] = STRING_TYPE_INFO :: Nil
 
@@ -39,7 +39,7 @@ case class Md5(child: Expression) extends UnaryExpression with InputTypeSpec {
 
 case class Sha1(child: Expression) extends UnaryExpression with InputTypeSpec {
 
-  override private[flink] def resultType: TypeInformation[_] = STRING_TYPE_INFO
+  override def resultType: TypeInformation[_] = STRING_TYPE_INFO
 
   override private[flink] def expectedTypes: Seq[TypeInformation[_]] = STRING_TYPE_INFO :: Nil
 
@@ -52,7 +52,7 @@ case class Sha1(child: Expression) extends UnaryExpression with InputTypeSpec {
 
 case class Sha224(child: Expression) extends UnaryExpression with InputTypeSpec {
 
-  override private[flink] def resultType: TypeInformation[_] = STRING_TYPE_INFO
+  override def resultType: TypeInformation[_] = STRING_TYPE_INFO
 
   override private[flink] def expectedTypes: Seq[TypeInformation[_]] = STRING_TYPE_INFO :: Nil
 
@@ -65,7 +65,7 @@ case class Sha224(child: Expression) extends UnaryExpression with InputTypeSpec 
 
 case class Sha256(child: Expression) extends UnaryExpression with InputTypeSpec {
 
-  override private[flink] def resultType: TypeInformation[_] = STRING_TYPE_INFO
+  override def resultType: TypeInformation[_] = STRING_TYPE_INFO
 
   override private[flink] def expectedTypes: Seq[TypeInformation[_]] = STRING_TYPE_INFO :: Nil
 
@@ -78,7 +78,7 @@ case class Sha256(child: Expression) extends UnaryExpression with InputTypeSpec 
 
 case class Sha384(child: Expression) extends UnaryExpression with InputTypeSpec {
 
-  override private[flink] def resultType: TypeInformation[_] = STRING_TYPE_INFO
+  override def resultType: TypeInformation[_] = STRING_TYPE_INFO
 
   override private[flink] def expectedTypes: Seq[TypeInformation[_]] = STRING_TYPE_INFO :: Nil
 
@@ -91,7 +91,7 @@ case class Sha384(child: Expression) extends UnaryExpression with InputTypeSpec 
 
 case class Sha512(child: Expression) extends UnaryExpression with InputTypeSpec {
 
-  override private[flink] def resultType: TypeInformation[_] = STRING_TYPE_INFO
+  override def resultType: TypeInformation[_] = STRING_TYPE_INFO
 
   override private[flink] def expectedTypes: Seq[TypeInformation[_]] = STRING_TYPE_INFO :: Nil
 
@@ -108,7 +108,7 @@ case class Sha2(child: Expression, hashLength: Expression)
   override private[flink] def left = child
   override private[flink] def right = hashLength
 
-  override private[flink] def resultType: TypeInformation[_] = STRING_TYPE_INFO
+  override def resultType: TypeInformation[_] = STRING_TYPE_INFO
 
   override private[flink] def expectedTypes: Seq[TypeInformation[_]] =
     STRING_TYPE_INFO :: INT_TYPE_INFO :: Nil

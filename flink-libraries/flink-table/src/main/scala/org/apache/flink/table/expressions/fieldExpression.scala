@@ -45,7 +45,7 @@ case class UnresolvedFieldReference(name: String) extends Attribute {
   override private[flink] def withName(newName: String): Attribute =
     UnresolvedFieldReference(newName)
 
-  override private[flink] def resultType: TypeInformation[_] =
+  override def resultType: TypeInformation[_] =
     throw UnresolvedException(s"Calling resultType on ${this.getClass}.")
 
   override private[flink] def validateInput(): ValidationResult =
@@ -80,7 +80,7 @@ case class Alias(child: Expression, name: String, extraNames: Seq[String] = Seq(
     relBuilder.alias(child.toRexNode, name)
   }
 
-  override private[flink] def resultType: TypeInformation[_] = child.resultType
+  override def resultType: TypeInformation[_] = child.resultType
 
   override private[flink] def makeCopy(anyRefs: Array[AnyRef]): this.type = {
     val child: Expression = anyRefs.head.asInstanceOf[Expression]
@@ -114,7 +114,7 @@ case class UnresolvedAlias(child: Expression) extends UnaryExpression with Named
   override private[flink] def toAttribute: Attribute =
     throw UnresolvedException("Invalid call to toAttribute on UnresolvedAlias")
 
-  override private[flink] def resultType: TypeInformation[_] =
+  override def resultType: TypeInformation[_] =
     throw UnresolvedException("Invalid call to resultType on UnresolvedAlias")
 
   override private[flink] lazy val valid = false
@@ -125,7 +125,7 @@ case class WindowReference(name: String, tpe: Option[TypeInformation[_]] = None)
   override private[flink] def toRexNode(implicit relBuilder: RelBuilder): RexNode =
     throw new UnsupportedOperationException("A window reference can not be used solely.")
 
-  override private[flink] def resultType: TypeInformation[_] =
+  override def resultType: TypeInformation[_] =
     tpe.getOrElse(throw UnresolvedException("Could not resolve type of referenced window."))
 
   override private[flink] def withName(newName: String): Attribute = {
@@ -144,7 +144,7 @@ case class TableReference(name: String, table: Table) extends LeafExpression wit
   override private[flink] def toRexNode(implicit relBuilder: RelBuilder): RexNode =
     throw new UnsupportedOperationException(s"Table reference '$name' can not be used solely.")
 
-  override private[flink] def resultType: TypeInformation[_] =
+  override def resultType: TypeInformation[_] =
     throw UnresolvedException(s"Table reference '$name' has no result type.")
 
   override private[flink] def toAttribute =
@@ -226,7 +226,7 @@ case class ProctimeAttribute(expr: Expression) extends TimeAttribute(expr) {
 /** Expression to access the timestamp of a StreamRecord. */
 case class StreamRecordTimestamp() extends LeafExpression {
 
-  override private[flink] def resultType = Types.LONG
+  override def resultType = Types.LONG
 
   override private[flink] def toRexNode(implicit relBuilder: RelBuilder): RexNode = {
     relBuilder.getRexBuilder.makeCall(StreamRecordTimestampSqlFunction)

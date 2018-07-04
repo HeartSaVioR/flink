@@ -40,7 +40,7 @@ case class Asc(child: Expression) extends Ordering {
     child.toRexNode
   }
 
-  override private[flink] def resultType: TypeInformation[_] = child.resultType
+  override def resultType: TypeInformation[_] = child.resultType
 }
 
 case class Desc(child: Expression) extends Ordering {
@@ -50,5 +50,5 @@ case class Desc(child: Expression) extends Ordering {
     relBuilder.desc(child.toRexNode)
   }
 
-  override private[flink] def resultType: TypeInformation[_] = child.resultType
+  override def resultType: TypeInformation[_] = child.resultType
 }

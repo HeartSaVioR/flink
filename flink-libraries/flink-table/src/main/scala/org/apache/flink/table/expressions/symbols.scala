@@ -31,7 +31,7 @@ import scala.language.{existentials, implicitConversions}
   */
 case class SymbolExpression(symbol: TableSymbol) extends LeafExpression {
 
-  override private[flink] def resultType: TypeInformation[_] =
+  override def resultType: TypeInformation[_] =
     throw new UnsupportedOperationException("This should not happen. A symbol has no result type.")
 
   def toExpr: SymbolExpression = this // triggers implicit conversion

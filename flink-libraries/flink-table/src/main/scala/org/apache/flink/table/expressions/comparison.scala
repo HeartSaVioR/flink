@@ -35,7 +35,7 @@ abstract class BinaryComparison extends BinaryExpression {
     relBuilder.call(sqlOperator, children.map(_.toRexNode))
   }
 
-  override private[flink] def resultType = BOOLEAN_TYPE_INFO
+  override def resultType = BOOLEAN_TYPE_INFO
 
   override private[flink] def validateInput(): ValidationResult =
     (left.resultType, right.resultType) match {
@@ -111,7 +111,7 @@ case class IsNull(child: Expression) extends UnaryExpression {
     relBuilder.isNull(child.toRexNode)
   }
 
-  override private[flink] def resultType = BOOLEAN_TYPE_INFO
+  override def resultType = BOOLEAN_TYPE_INFO
 }
 
 case class IsNotNull(child: Expression) extends UnaryExpression {
@@ -121,7 +121,7 @@ case class IsNotNull(child: Expression) extends UnaryExpression {
     relBuilder.isNotNull(child.toRexNode)
   }
 
-  override private[flink] def resultType = BOOLEAN_TYPE_INFO
+  override def resultType = BOOLEAN_TYPE_INFO
 }
 
 case class IsTrue(child: Expression) extends UnaryExpression {
@@ -131,7 +131,7 @@ case class IsTrue(child: Expression) extends UnaryExpression {
     relBuilder.call(SqlStdOperatorTable.IS_TRUE, child.toRexNode)
   }
 
-  override private[flink] def resultType = BOOLEAN_TYPE_INFO
+  override def resultType = BOOLEAN_TYPE_INFO
 }
 
 case class IsFalse(child: Expression) extends UnaryExpression {
@@ -141,7 +141,7 @@ case class IsFalse(child: Expression) extends UnaryExpression {
     relBuilder.call(SqlStdOperatorTable.IS_FALSE, child.toRexNode)
   }
 
-  override private[flink] def resultType = BOOLEAN_TYPE_INFO
+  override def resultType = BOOLEAN_TYPE_INFO
 }
 
 case class IsNotTrue(child: Expression) extends UnaryExpression {
@@ -151,7 +151,7 @@ case class IsNotTrue(child: Expression) extends UnaryExpression {
     relBuilder.call(SqlStdOperatorTable.IS_NOT_TRUE, child.toRexNode)
   }
 
-  override private[flink] def resultType = BOOLEAN_TYPE_INFO
+  override def resultType = BOOLEAN_TYPE_INFO
 }
 
 case class IsNotFalse(child: Expression) extends UnaryExpression {
@@ -161,7 +161,7 @@ case class IsNotFalse(child: Expression) extends UnaryExpression {
     relBuilder.call(SqlStdOperatorTable.IS_NOT_FALSE, child.toRexNode)
   }
 
-  override private[flink] def resultType = BOOLEAN_TYPE_INFO
+  override def resultType = BOOLEAN_TYPE_INFO
 }
 
 abstract class BetweenComparison(
@@ -170,7 +170,7 @@ abstract class BetweenComparison(
     upperBound: Expression)
   extends Expression {
 
-  override private[flink] def resultType: TypeInformation[_] = BasicTypeInfo.BOOLEAN_TYPE_INFO
+  override def resultType: TypeInformation[_] = BasicTypeInfo.BOOLEAN_TYPE_INFO
 
   override private[flink] def children: Seq[Expression] = Seq(expr, lowerBound, upperBound)
 

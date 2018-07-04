@@ -60,7 +60,7 @@ case class Sum(child: Expression) extends Aggregation {
     relBuilder.aggregateCall(SqlStdOperatorTable.SUM, false, false, null, name, child.toRexNode)
   }
 
-  override private[flink] def resultType = child.resultType
+  override def resultType = child.resultType
 
   override private[flink] def validateInput() =
     TypeCheckUtils.assertNumericExpr(child.resultType, "sum")
@@ -81,7 +81,7 @@ case class Sum0(child: Expression) extends Aggregation {
     relBuilder.aggregateCall(SqlStdOperatorTable.SUM0, false, false, null, name, child.toRexNode)
   }
 
-  override private[flink] def resultType = child.resultType
+  override def resultType = child.resultType
 
   override private[flink] def validateInput() =
     TypeCheckUtils.assertNumericExpr(child.resultType, "sum0")
@@ -98,7 +98,7 @@ case class Min(child: Expression) extends Aggregation {
     relBuilder.aggregateCall(SqlStdOperatorTable.MIN, false, false, null, name, child.toRexNode)
   }
 
-  override private[flink] def resultType = child.resultType
+  override def resultType = child.resultType
 
   override private[flink] def validateInput() =
     TypeCheckUtils.assertOrderableExpr(child.resultType, "min")
@@ -116,7 +116,7 @@ case class Max(child: Expression) extends Aggregation {
     relBuilder.aggregateCall(SqlStdOperatorTable.MAX, false, false, null, name, child.toRexNode)
   }
 
-  override private[flink] def resultType = child.resultType
+  override def resultType = child.resultType
 
   override private[flink] def validateInput() =
     TypeCheckUtils.assertOrderableExpr(child.resultType, "max")
@@ -134,7 +134,7 @@ case class Count(child: Expression) extends Aggregation {
     relBuilder.aggregateCall(SqlStdOperatorTable.COUNT, false, false, null, name, child.toRexNode)
   }
 
-  override private[flink] def resultType = BasicTypeInfo.LONG_TYPE_INFO
+  override def resultType = BasicTypeInfo.LONG_TYPE_INFO
 
   override private[flink] def getSqlAggFunction()(implicit relBuilder: RelBuilder) = {
     SqlStdOperatorTable.COUNT
@@ -149,7 +149,7 @@ case class Avg(child: Expression) extends Aggregation {
     relBuilder.aggregateCall(SqlStdOperatorTable.AVG, false, false, null, name, child.toRexNode)
   }
 
-  override private[flink] def resultType = child.resultType
+  override def resultType = child.resultType
 
   override private[flink] def validateInput() =
     TypeCheckUtils.assertNumericExpr(child.resultType, "avg")
@@ -166,7 +166,7 @@ case class Collect(child: Expression) extends Aggregation  {
 
   override private[flink] def children: Seq[Expression] = Seq(child)
 
-  override private[flink] def resultType: TypeInformation[_] =
+  override def resultType: TypeInformation[_] =
     MultisetTypeInfo.getInfoFor(child.resultType)
 
   override def toString: String = s"collect($child)"
@@ -189,7 +189,7 @@ case class StddevPop(child: Expression) extends Aggregation {
       SqlStdOperatorTable.STDDEV_POP, false, false, null, name, child.toRexNode)
   }
 
-  override private[flink] def resultType = child.resultType
+  override def resultType = child.resultType
 
   override private[flink] def validateInput() =
     TypeCheckUtils.assertNumericExpr(child.resultType, "stddev_pop")
@@ -207,7 +207,7 @@ case class StddevSamp(child: Expression) extends Aggregation {
       SqlStdOperatorTable.STDDEV_SAMP, false, false, null, name, child.toRexNode)
   }
 
-  override private[flink] def resultType = child.resultType
+  override def resultType = child.resultType
 
   override private[flink] def validateInput() =
     TypeCheckUtils.assertNumericExpr(child.resultType, "stddev_samp")
@@ -224,7 +224,7 @@ case class VarPop(child: Expression) extends Aggregation {
     relBuilder.aggregateCall(SqlStdOperatorTable.VAR_POP, false, false, null, name, child.toRexNode)
   }
 
-  override private[flink] def resultType = child.resultType
+  override def resultType = child.resultType
 
   override private[flink] def validateInput() =
     TypeCheckUtils.assertNumericExpr(child.resultType, "var_pop")
@@ -242,7 +242,7 @@ case class VarSamp(child: Expression) extends Aggregation {
       SqlStdOperatorTable.VAR_SAMP, false, false, null, name, child.toRexNode)
   }
 
-  override private[flink] def resultType = child.resultType
+  override def resultType = child.resultType
 
   override private[flink] def validateInput() =
     TypeCheckUtils.assertNumericExpr(child.resultType, "var_samp")

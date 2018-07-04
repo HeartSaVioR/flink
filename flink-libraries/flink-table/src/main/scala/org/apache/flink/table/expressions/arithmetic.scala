@@ -35,7 +35,7 @@ abstract class BinaryArithmetic extends BinaryExpression {
     relBuilder.call(sqlOperator, children.map(_.toRexNode))
   }
 
-  override private[flink] def resultType: TypeInformation[_] =
+  override def resultType: TypeInformation[_] =
     TypeCoercion.widerTypeOf(left.resultType, right.resultType) match {
       case Some(t) => t
       case None =>
@@ -107,7 +107,7 @@ case class UnaryMinus(child: Expression) extends UnaryExpression {
     relBuilder.call(SqlStdOperatorTable.UNARY_MINUS, child.toRexNode)
   }
 
-  override private[flink] def resultType = child.resultType
+  override def resultType = child.resultType
 
   override private[flink] def validateInput(): ValidationResult = {
     if (isNumeric(child.resultType)) {

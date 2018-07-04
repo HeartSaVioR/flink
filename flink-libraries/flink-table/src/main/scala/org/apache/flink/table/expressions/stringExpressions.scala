@@ -32,7 +32,7 @@ import scala.collection.JavaConversions._
   * Returns the length of this `str`.
   */
 case class CharLength(child: Expression) extends UnaryExpression {
-  override private[flink] def resultType: TypeInformation[_] = INT_TYPE_INFO
+  override def resultType: TypeInformation[_] = INT_TYPE_INFO
 
   override private[flink] def validateInput(): ValidationResult = {
     if (child.resultType == STRING_TYPE_INFO) {
@@ -55,7 +55,7 @@ case class CharLength(child: Expression) extends UnaryExpression {
   * All other letters are in lowercase. Words are delimited by white space.
   */
 case class InitCap(child: Expression) extends UnaryExpression {
-  override private[flink] def resultType: TypeInformation[_] = STRING_TYPE_INFO
+  override def resultType: TypeInformation[_] = STRING_TYPE_INFO
 
   override private[flink] def validateInput(): ValidationResult = {
     if (child.resultType == STRING_TYPE_INFO) {
@@ -80,7 +80,7 @@ case class Like(str: Expression, pattern: Expression) extends BinaryExpression {
   private[flink] def left: Expression = str
   private[flink] def right: Expression = pattern
 
-  override private[flink] def resultType: TypeInformation[_] = BOOLEAN_TYPE_INFO
+  override def resultType: TypeInformation[_] = BOOLEAN_TYPE_INFO
 
   override private[flink] def validateInput(): ValidationResult = {
     if (str.resultType == STRING_TYPE_INFO && pattern.resultType == STRING_TYPE_INFO) {
@@ -102,7 +102,7 @@ case class Like(str: Expression, pattern: Expression) extends BinaryExpression {
   * Returns str with all characters changed to lowercase.
   */
 case class Lower(child: Expression) extends UnaryExpression {
-  override private[flink] def resultType: TypeInformation[_] = STRING_TYPE_INFO
+  override def resultType: TypeInformation[_] = STRING_TYPE_INFO
 
   override private[flink] def validateInput(): ValidationResult = {
     if (child.resultType == STRING_TYPE_INFO) {
@@ -127,7 +127,7 @@ case class Similar(str: Expression, pattern: Expression) extends BinaryExpressio
   private[flink] def left: Expression = str
   private[flink] def right: Expression = pattern
 
-  override private[flink] def resultType: TypeInformation[_] = BOOLEAN_TYPE_INFO
+  override def resultType: TypeInformation[_] = BOOLEAN_TYPE_INFO
 
   override private[flink] def validateInput(): ValidationResult = {
     if (str.resultType == STRING_TYPE_INFO && pattern.resultType == STRING_TYPE_INFO) {
@@ -157,7 +157,7 @@ case class Substring(
 
   override private[flink] def children: Seq[Expression] = str :: begin :: length :: Nil
 
-  override private[flink] def resultType: TypeInformation[_] = STRING_TYPE_INFO
+  override def resultType: TypeInformation[_] = STRING_TYPE_INFO
 
   override private[flink] def expectedTypes: Seq[TypeInformation[_]] =
     Seq(STRING_TYPE_INFO, INT_TYPE_INFO, INT_TYPE_INFO)
@@ -179,7 +179,7 @@ case class Trim(
 
   override private[flink] def children: Seq[Expression] = trimMode :: trimString :: str :: Nil
 
-  override private[flink] def resultType: TypeInformation[_] = STRING_TYPE_INFO
+  override def resultType: TypeInformation[_] = STRING_TYPE_INFO
 
   override private[flink] def validateInput(): ValidationResult = {
     trimMode match {
@@ -214,7 +214,7 @@ object TrimConstants {
   */
 case class Upper(child: Expression) extends UnaryExpression with InputTypeSpec {
 
-  override private[flink] def resultType: TypeInformation[_] = STRING_TYPE_INFO
+  override def resultType: TypeInformation[_] = STRING_TYPE_INFO
 
   override private[flink] def expectedTypes: Seq[TypeInformation[_]] =
     Seq(STRING_TYPE_INFO)
@@ -234,7 +234,7 @@ case class Position(needle: Expression, haystack: Expression)
 
   override private[flink] def children: Seq[Expression] = Seq(needle, haystack)
 
-  override private[flink] def resultType: TypeInformation[_] = INT_TYPE_INFO
+  override def resultType: TypeInformation[_] = INT_TYPE_INFO
 
   override private[flink] def expectedTypes: Seq[TypeInformation[_]] =
     Seq(STRING_TYPE_INFO, STRING_TYPE_INFO)
@@ -263,7 +263,7 @@ case class Overlay(
   override private[flink] def children: Seq[Expression] =
     Seq(str, replacement, starting, position)
 
-  override private[flink] def resultType: TypeInformation[_] = STRING_TYPE_INFO
+  override def resultType: TypeInformation[_] = STRING_TYPE_INFO
 
   override private[flink] def expectedTypes: Seq[TypeInformation[_]] =
     Seq(STRING_TYPE_INFO, STRING_TYPE_INFO, INT_TYPE_INFO, INT_TYPE_INFO)
@@ -288,7 +288,7 @@ case class Concat(strings: Seq[Expression]) extends Expression with InputTypeSpe
 
   override private[flink] def children: Seq[Expression] = strings
 
-  override private[flink] def resultType: TypeInformation[_] = BasicTypeInfo.STRING_TYPE_INFO
+  override def resultType: TypeInformation[_] = BasicTypeInfo.STRING_TYPE_INFO
 
   override private[flink] def expectedTypes: Seq[TypeInformation[_]] =
     children.map(_ => STRING_TYPE_INFO)
@@ -312,7 +312,7 @@ case class ConcatWs(separator: Expression, strings: Seq[Expression])
 
   override private[flink] def children: Seq[Expression] = Seq(separator) ++ strings
 
-  override private[flink] def resultType: TypeInformation[_] = BasicTypeInfo.STRING_TYPE_INFO
+  override def resultType: TypeInformation[_] = BasicTypeInfo.STRING_TYPE_INFO
 
   override private[flink] def expectedTypes: Seq[TypeInformation[_]] =
     children.map(_ => STRING_TYPE_INFO)
@@ -329,7 +329,7 @@ case class Lpad(text: Expression, len: Expression, pad: Expression)
 
   override private[flink] def children: Seq[Expression] = Seq(text, len, pad)
 
-  override private[flink] def resultType: TypeInformation[_] = BasicTypeInfo.STRING_TYPE_INFO
+  override def resultType: TypeInformation[_] = BasicTypeInfo.STRING_TYPE_INFO
 
   override private[flink] def expectedTypes: Seq[TypeInformation[_]] =
     Seq(BasicTypeInfo.STRING_TYPE_INFO, BasicTypeInfo.INT_TYPE_INFO, BasicTypeInfo.STRING_TYPE_INFO)
@@ -346,7 +346,7 @@ case class Rpad(text: Expression, len: Expression, pad: Expression)
 
   override private[flink] def children: Seq[Expression] = Seq(text, len, pad)
 
-  override private[flink] def resultType: TypeInformation[_] = BasicTypeInfo.STRING_TYPE_INFO
+  override def resultType: TypeInformation[_] = BasicTypeInfo.STRING_TYPE_INFO
 
   override private[flink] def expectedTypes: Seq[TypeInformation[_]] =
     Seq(BasicTypeInfo.STRING_TYPE_INFO, BasicTypeInfo.INT_TYPE_INFO, BasicTypeInfo.STRING_TYPE_INFO)
